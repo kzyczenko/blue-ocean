@@ -1,0 +1,12 @@
+{
+  "jenkins": {
+    "master": {
+      "jvm_options": "-Djenkins.install.runSetupWizard=false",
+      "install_method": "package"
+    }
+  },
+  "java": {
+    "install_flavor": "openjdk",
+    "jdk_version": 8
+  }
+}

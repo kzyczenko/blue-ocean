@@ -1,2 +1,4 @@
-# blue-ocean
-Jenkins Blue Ocean cookbook
+# blue_ocean
+
+TODO: Enter the cookbook description here.
+
