@@ -1,9 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure("2") do |config|
-  config.vm.box = "bento/centos-7.5"
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+Vagrant.configure('2') do |config|
+  config.vm.box = 'bento/centos-7.5'
+  config.vm.network 'forwarded_port', guest: 8080, host: 8080
   config.vm.box_check_update = true
   config.vm.hostname = 'blue-ocean'
   # config.vm.provider "virtualbox" do |vb|

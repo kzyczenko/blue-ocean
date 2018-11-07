@@ -1,0 +1,12 @@
+import jenkins.model.*
+import hudson.security.*
+
+def instance = Jenkins.getInstance()
+
+def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+hudsonRealm.createAccount("<%= node['blue_ocean']['jenkins_username'] %>","<%= node['blue_ocean']['jenkins_password'] %>")
+instance.setSecurityRealm(hudsonRealm)
+def hudsonAutorizaton = new FullControlOnceLoggedInAuthorizationStrategy()
+hudsonAutorizaton.setAllowAnonymousRead(true)
+instance.setAuthorizationStrategy(hudsonAutorizaton)
+instance.save()
