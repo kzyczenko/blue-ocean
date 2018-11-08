@@ -1,4 +1,5 @@
 import jenkins.model.*
+import jenkins.security.s2m.AdminWhitelistRule
 import hudson.security.*
 
 def instance = Jenkins.getInstance()
@@ -6,10 +7,18 @@ def instance = Jenkins.getInstance()
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
 hudsonRealm.createAccount("<%= node['blue_ocean']['jenkins_username'] %>","<%= node['blue_ocean']['jenkins_password'] %>")
 instance.setSecurityRealm(hudsonRealm)
+
 def hudsonAutorizaton = new FullControlOnceLoggedInAuthorizationStrategy()
 hudsonAutorizaton.setAllowAnonymousRead(true)
 instance.setAuthorizationStrategy(hudsonAutorizaton)
+
 def crumbIssuer = new csrf.DefaultCrumbIssuer(false)
 instance.setCrumbIssuer(crumbIssuer)
 instance.getDescriptor("jenkins.CLI").setEnabled(false)
+
+instance.getDescriptor("jenkins.model.JenkinsLocationConfiguration").setUrl("<%= node['blue_ocean']['jenkins_url'] %>")
+instance.getDescriptor("jenkins.model.JenkinsLocationConfiguration").setAdminAddress("<%= node['blue_ocean']['admin_address'] %>")
+
+instance.getInjector().getInstance(AdminWhitelistRule.class).setMasterKillSwitch(false)
+
 instance.save()
